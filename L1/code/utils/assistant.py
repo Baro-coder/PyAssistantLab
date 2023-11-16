@@ -92,7 +92,7 @@ class Assistant(sr.Recognizer):
                     continue
                 
                 try:
-                    text = ' '.join(self.recognize_google(audio, language="pl-PL")).lower()
+                    text = self.recognize_google(audio, language="pl-PL")
                 except sr.UnknownValueError:
                     self.__log_assistant("Nie zrozumiałem. Możesz powtórzyć?")
                     continue
@@ -111,13 +111,13 @@ class Assistant(sr.Recognizer):
                     break
       
                 else:
-                    if len(text.split() < 4):
+                    if len(text) < 4:
                         self.__log_assistant("Nie zrozumiałem. Możesz powtórzyć?")
                         continue
                     
                     if text.split()[0] in self._start_operation_list:
                         words = text.split()
-                        if ' '.join(words[0:1]) == self._start_operation_list[0]:
+                        if words[0:1] == self._start_operation_list[0]:
                             words.pop(0)
                             words.pop(0)
                         else:
@@ -168,7 +168,6 @@ class Assistant(sr.Recognizer):
         print(f"    - odejmowanie : {self._calc_operation_list['sub']['words']}")
         print(f"    - mnożenie    : {self._calc_operation_list['mul']['words']}")
         print(f"    - dzielenie   : {self._calc_operation_list['div']['words']}")
-        
         
         self.__log_assistant(f"Albo podaj polecenie {self._stop_operation_list[0]}, żeby zakończyć pracę.")
         
