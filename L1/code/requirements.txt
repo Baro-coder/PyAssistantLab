@@ -6,6 +6,7 @@ greenlet==3.0.1
 idna==3.4
 PyAudio==0.2.13
 pycparser==2.21
+pyttsx3==2.90
 requests==2.31.0
 SpeechRecognition==3.10.0
 urllib3==2.0.7
