@@ -1,8 +1,9 @@
 import pyttsx3
 import speech_recognition as sr
+from enum import Enum
 
 
-class Operation:
+class Operation(Enum):
     ADD         = 1
     SUBSTRACT   = 2
     MULTIPLY    = 3
@@ -10,54 +11,53 @@ class Operation:
     UNKNOWN     = 0
 
 
-__start_operation_list : list[str] = [
-    "ile jest",
-    "oblicz"
-]
-
-__help_operation_list : list[str] = [
-    "pomoc"
-]
-
-__stop_operation_list : list[str] = [
-    "stop",
-    "zatrzymaj"
-]
-
-__calc_operation_list : dict = {
-    "add" : {
-        "operation" : Operation.ADD,
-        "words" : [
-            "dodać",
-            "plus"
-        ],
-    },
-    "sub" : {
-        "operation" : Operation.SUBSTRACT,
-        "words" : [
-            "odjąć",
-            "minus"
-        ],
-    },
-    "mul" : {
-        "operation" : Operation.MULTIPLY,
-        "words" : [
-            "razy",
-            "pomnożyć przez",
-            "mnożone przez"
-        ],
-    },
-    "div" : {
-        "operation" : Operation.DIVIDE,
-        "words" : [
-            "podzielić przez",
-            "dzielone przez"
-        ],
-    },
-}
-
-
 class Assistant(sr.Recognizer):
+    _start_operation_list : list[str] = [
+        "ile jest",
+        "oblicz"
+    ]
+
+    _help_operation_list : list[str] = [
+        "pomoc"
+    ]
+
+    _stop_operation_list : list[str] = [
+        "stop",
+        "zatrzymaj"
+    ]
+
+    _calc_operation_list : dict = {
+        "add" : {
+            "operation" : Operation.ADD,
+            "words" : [
+                "dodać",
+                "plus"
+            ],
+        },
+        "sub" : {
+            "operation" : Operation.SUBSTRACT,
+            "words" : [
+                "odjąć",
+                "minus"
+            ],
+        },
+        "mul" : {
+            "operation" : Operation.MULTIPLY,
+            "words" : [
+                "razy",
+                "pomnożyć przez",
+                "mnożone przez"
+            ],
+        },
+        "div" : {
+            "operation" : Operation.DIVIDE,
+            "words" : [
+                "podzielić przez",
+                "dzielone przez"
+            ],
+        },
+    }
+    
     def __init__(self) -> None:
         self._engine = pyttsx3.init()
 
@@ -92,7 +92,7 @@ class Assistant(sr.Recognizer):
                     continue
                 
                 try:
-                    text = ' '.join(self.recognize_google(audio, language="pl-PL"))
+                    text = ' '.join(self.recognize_google(audio, language="pl-PL")).lower()
                 except sr.UnknownValueError:
                     self.__log_assistant("Nie zrozumiałem. Możesz powtórzyć?")
                     continue
@@ -102,11 +102,11 @@ class Assistant(sr.Recognizer):
                 
                 self.__log_user(text)
                 
-                if text in __help_operation_list:
+                if text in self._help_operation_list:
                     self.help_user()
                     continue
                 
-                elif text in __stop_operation_list:
+                elif text in self._stop_operation_list:
                     self.bye()
                     break
       
@@ -115,9 +115,9 @@ class Assistant(sr.Recognizer):
                         self.__log_assistant("Nie zrozumiałem. Możesz powtórzyć?")
                         continue
                     
-                    if text.split()[0] in __start_operation_list:
+                    if text.split()[0] in self._start_operation_list:
                         words = text.split()
-                        if ' '.join(words[0:1]) == __start_operation_list[0]:
+                        if ' '.join(words[0:1]) == self._start_operation_list[0]:
                             words.pop(0)
                             words.pop(0)
                         else:
@@ -129,7 +129,7 @@ class Assistant(sr.Recognizer):
                             self.__log_assistant("Nie zrozumiałem. Możesz powtórzyć?")
                             continue
                         
-                        for key, value in __calc_operation_list.items():
+                        for key, value in self._calc_operation_list.items():
                             if words[1] in value["words"]:
                                 op = value["operation"]
                                 break
@@ -146,32 +146,31 @@ class Assistant(sr.Recognizer):
                                 self.__log_assistant("Nie zrozumiałem. Możesz powtórzyć?")
                                 continue
                         
-                        match(op):
-                            case Operation.ADD:
-                                result = num_1 + num_2
-                            case Operation.SUBSTRACT:
-                                result = num_1 - num_2
-                            case Operation.MULTIPLY:
-                                result = num_1 * num_2
-                            case Operation.DIVIDE:
-                                if num_2 == 0:
-                                    self.__log_assistant("Nie można dzielić przez 0.")
-                                    continue
-                                result = num_1 / num_2
+                        if op == Operation.ADD:
+                            result = num_1 + num_2
+                        elif op == Operation.SUBSTRACT:
+                            result = num_1 - num_2
+                        elif op == Operation.MULTIPLY:
+                            result = num_1 * num_2
+                        elif op == Operation.DIVIDE:
+                            if num_2 == 0:
+                                self.__log_assistant("Nie można dzielić przez 0.")
+                                continue
+                            result = num_1 / num_2
 
                         self.__log_assistant(f"Wynik to {result}")
 
     def help_user(self) -> None:
-        self.__log_assistant(f"Podaj polecenie w formacie: [{__start_operation_list[0]}], liczba, rodzaj operacji, liczba.")
+        self.__log_assistant(f"Podaj polecenie w formacie: [{self._start_operation_list[0]}], liczba, rodzaj operacji, liczba.")
         
         print(" * Rodzaje operacji: ")
-        print(f"    - dodawanie   : {__calc_operation_list['add']['words']}")
-        print(f"    - odejmowanie : {__calc_operation_list['sub']['words']}")
-        print(f"    - mnożenie    : {__calc_operation_list['mul']['words']}")
-        print(f"    - dzielenie   : {__calc_operation_list['div']['words']}")
+        print(f"    - dodawanie   : {self._calc_operation_list['add']['words']}")
+        print(f"    - odejmowanie : {self._calc_operation_list['sub']['words']}")
+        print(f"    - mnożenie    : {self._calc_operation_list['mul']['words']}")
+        print(f"    - dzielenie   : {self._calc_operation_list['div']['words']}")
         
         
-        self.__log_assistant(f"Albo podaj polecenie {__stop_operation_list[0]}, żeby zakończyć pracę.")
+        self.__log_assistant(f"Albo podaj polecenie {self._stop_operation_list[0]}, żeby zakończyć pracę.")
         
     
     def introduce(self) -> None:
