@@ -12,4 +12,6 @@ Repozytorium zawiera prace laboratoryjne wykonane w ramach realizacji przedmiotu
 
 ### 1. [Laboratorium nr 1](L1/)
 
+### 2. [Laboratorium nr 2](L2/)
+
 ---
