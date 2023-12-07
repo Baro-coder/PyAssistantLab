@@ -1,0 +1,13 @@
+﻿<Window x:Class="Lab2.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab2"
+        mc:Ignorable="d"
+        Title="Info" Height="450" Width="800" ResizeMode="NoResize">
+    <Grid>
+        <Label Content="O aplikacji" HorizontalAlignment="Center" Margin="0,21,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <TextBox Text="Aplikacja wykonana w ramach realizacji przedmiotu 'Standardy w projektowaniu interfejsow dialogowych' &#xD;&#xA;wykladanego w Wojskowej Akademii Technicznej.&#xD;&#xA;&#xD;&#xA;Autor:   pchor. Bartlomiej Szykula&#xD;&#xA;Grupa:  WCY19IT1S0&#xD;&#xA;&#xD;&#xA;" Margin="30,80,30,30"></TextBox>
+    </Grid>
+</Window>
