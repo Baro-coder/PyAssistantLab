@@ -118,19 +118,18 @@ class Assistant(sr.Recognizer):
                     if text.split()[0] in self._start_operation_list:
                         words = text.split()
                         if words[0:1] == self._start_operation_list[0]:
-                            words.pop(0)
-                            words.pop(0)
+                            ind = 2
                         else:
-                            words.pop(0)
+                            ind = 1
                             
                         try:
-                            num_1 = float(words[0])
+                            num_1 = float(words[ind])
                         except TypeError:
                             self.__log_assistant("Nie zrozumiałem. Możesz powtórzyć?")
                             continue
                         
                         for key, value in self._calc_operation_list.items():
-                            if words[1] in value["words"]:
+                            if words[ind+1] in value["words"]:
                                 op = value["operation"]
                                 break
                         else:
@@ -138,10 +137,10 @@ class Assistant(sr.Recognizer):
                             continue
                         
                         try:
-                            num_2 = float(words[2])
+                            num_2 = float(words[ind+2])
                         except TypeError:
                             try:
-                                num_2 = float(words[3])
+                                num_2 = float(words[ind+3])
                             except TypeError | IndexError:
                                 self.__log_assistant("Nie zrozumiałem. Możesz powtórzyć?")
                                 continue
@@ -159,6 +158,7 @@ class Assistant(sr.Recognizer):
                             result = num_1 / num_2
 
                         self.__log_assistant(f"Wynik to {result}")
+
 
     def help_user(self) -> None:
         self.__log_assistant(f"Podaj polecenie w formacie: [{self._start_operation_list[0]}], liczba, rodzaj operacji, liczba.")
