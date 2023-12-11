@@ -1,7 +1,7 @@
+import sys
 import pyttsx3
 import speech_recognition as sr
 from enum import Enum
-
 
 class Operation(Enum):
     ADD         = 1
@@ -31,14 +31,16 @@ class Assistant(sr.Recognizer):
             "operation" : Operation.ADD,
             "words" : [
                 "dodać",
-                "plus"
+                "plus",
+                "+"
             ],
         },
         "sub" : {
             "operation" : Operation.SUBSTRACT,
             "words" : [
                 "odjąć",
-                "minus"
+                "minus",
+                "-"
             ],
         },
         "mul" : {
@@ -46,19 +48,25 @@ class Assistant(sr.Recognizer):
             "words" : [
                 "razy",
                 "pomnożyć przez",
-                "mnożone przez"
+                "mnożone przez",
+                "*",
+                "x"
             ],
         },
         "div" : {
             "operation" : Operation.DIVIDE,
             "words" : [
                 "podzielić przez",
-                "dzielone przez"
+                "dzielone przez",
+                "dzielone",
+                "/"
             ],
         },
     }
     
-    def __init__(self) -> None:
+    def __init__(self, device_index : int = 0) -> None:
+        self._dev_index = device_index
+        
         self._engine = pyttsx3.init()
 
         _voices = self._engine.getProperty('voices')
@@ -77,86 +85,135 @@ class Assistant(sr.Recognizer):
     
     def __log_assistant(self, msg : str) -> None:
         self._engine.say(msg)
-        self._engine.runAndWait()
         self.__log("ASSISTANT", msg)
+        self._engine.runAndWait()
+
+    def __log_core(self, msg : str) -> None:
+        who = "  [*] CORE     "
+        print(f'{who} : {msg}')
 
 
-    def work(self) -> None:            
-        with sr.Microphone() as source: 
+    def __is_start_cmd(self, text: list[str]) -> (bool, int):
+        for start_op in Assistant._start_operation_list:
+            l = len(start_op.split())
+            phrase = ' '.join(text[:l])
+            print(f'    - {phrase=} | {start_op=}', file=sys.stderr)
+            if phrase == start_op:
+                return True, l
+        return False, 0
+    
+    def __get_num(self, text: list[str]) -> float | None:
+        try:
+            phrase = text[0].replace(',', '.')
+            print(f'    - {phrase= }', file=sys.stderr)
+            if phrase == '0' or phrase == '0.0':
+                return 0
+            num = float(phrase)
+        except Exception as err:
+            print(f"[ERROR]: {err}")
+            return None
+        else:
+            return num
+    
+    def __get_op(self, text: list[str]) -> (Operation | None, int):
+        for key, value in Assistant._calc_operation_list.items():
+            for calc_op in value["words"]:
+                l = len(calc_op.split())
+                phrase = ' '.join(text[:l])
+                print(f'    - {phrase= } | {calc_op= }', file=sys.stderr)
+                if phrase == calc_op:
+                    return value["operation"], l
+        return None, 0
+        
+    
+    def __calculate(self, num_1: float, op: Operation, num_2: float) -> float:
+        self.__log_core("Calculating...")
+        if op == Operation.ADD:
+            result = num_1 + num_2
+        elif op == Operation.SUBSTRACT:
+            result = num_1 - num_2
+        elif op == Operation.MULTIPLY:
+            result = num_1 * num_2
+        elif op == Operation.DIVIDE:
+            if num_2 == 0:
+                raise ZeroDivisionError("Nie można dzielić przez 0.")
+            result = num_1 / num_2
+        return result
+    
+
+    def work(self) -> None:
+        with sr.Microphone(device_index=self._dev_index) as source: 
             while True:
                 self.__log_assistant("Jak mogę Ci pomóc?")
                 
                 try:
-                    audio = self.listen(source=source, timeout=5)
+                    self.__log_core("Listening...")
+                    audio = self.listen(source=source, timeout=8, phrase_time_limit=4)
                 except sr.WaitTimeoutError:
                     continue
                 
                 try:
+                    self.__log_core("Recognizing...")
                     text = self.recognize_google(audio, language="pl-PL")
+                    if type(text) == str:
+                        self.__log_core("Splitting...")
+                        text = text.lower().split()
                 except sr.UnknownValueError:
+                    self.__log_core("UnknownValueError detected")
                     self.__log_assistant("Nie zrozumiałem. Możesz powtórzyć?")
                     continue
                 except sr.RequestError as err:
                     print(f' [ERROR] : Google Speech Recognition : błąd usługi; {err}')
                     continue
                 
-                self.__log_user(text)
+                self.__log_user(' '.join(text))
                 
-                if text in self._help_operation_list:
+                self.__log_core("Checking HELP command...")
+                if text[0] in self._help_operation_list:
                     self.help_user()
                     continue
                 
-                elif text in self._stop_operation_list:
+                self.__log_core("Checking STOP command...")
+                if text[0] in self._stop_operation_list:
                     self.bye()
                     break
-      
-                else:
-                    if len(text) < 4:
+            
+                self.__log_core("Checking CALCULATE format...")
+                self.__log_core(f"Checking words count [{len(text)}]...")
+                if len(text) < 4:
+                    self.__log_assistant("Nie zrozumiałem. Możesz powtórzyć?")
+                    continue
+                
+                self.__log_core("Checking START command...")
+                start, ind = self.__is_start_cmd(text)
+                if start:
+                    text = text[ind:]
+                    
+                    self.__log_core("Getting NUM_1...")
+                    num_1 = self.__get_num(text)
+                    if not num_1:
+                        self.__log_assistant("Nie zrozumiałem. Możesz powtórzyć?")
+                        continue
+                    text = text[1:]
+                    
+                    self.__log_core("Getting Operation type...")
+                    op, ind = self.__get_op(text)
+                    if not op:
+                        self.__log_assistant("Nie zrozumiałem. Możesz powtórzyć?")
+                        continue
+                    text = text[ind:]
+                    
+                    self.__log_core("Getting NUM_2...")
+                    num_2 = self.__get_num(text)
+                    if not num_2:
                         self.__log_assistant("Nie zrozumiałem. Możesz powtórzyć?")
                         continue
                     
-                    if text.split()[0] in self._start_operation_list:
-                        words = text.split()
-                        if words[0:1] == self._start_operation_list[0]:
-                            ind = 2
-                        else:
-                            ind = 1
-                            
-                        try:
-                            num_1 = float(words[ind])
-                        except TypeError:
-                            self.__log_assistant("Nie zrozumiałem. Możesz powtórzyć?")
-                            continue
-                        
-                        for key, value in self._calc_operation_list.items():
-                            if words[ind+1] in value["words"]:
-                                op = value["operation"]
-                                break
-                        else:
-                            self.__log_assistant("Nie zrozumiałem. Możesz powtórzyć?")
-                            continue
-                        
-                        try:
-                            num_2 = float(words[ind+2])
-                        except TypeError:
-                            try:
-                                num_2 = float(words[ind+3])
-                            except TypeError | IndexError:
-                                self.__log_assistant("Nie zrozumiałem. Możesz powtórzyć?")
-                                continue
-                        
-                        if op == Operation.ADD:
-                            result = num_1 + num_2
-                        elif op == Operation.SUBSTRACT:
-                            result = num_1 - num_2
-                        elif op == Operation.MULTIPLY:
-                            result = num_1 * num_2
-                        elif op == Operation.DIVIDE:
-                            if num_2 == 0:
-                                self.__log_assistant("Nie można dzielić przez 0.")
-                                continue
-                            result = num_1 / num_2
-
+                    try:
+                        result = self.__calculate(num_1, op, num_2)
+                    except ZeroDivisionError as err:
+                        self.__log_assistant(str(err.args[0]))
+                    else:
                         self.__log_assistant(f"Wynik to {result}")
 
 

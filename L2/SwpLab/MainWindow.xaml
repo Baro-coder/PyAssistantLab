@@ -1,0 +1,32 @@
+﻿<Window x:Class="SwpLab.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SwpLab"
+        mc:Ignorable="d"
+        Title="Asystent Kalkulacyjny" HorizontalAlignment="Center" Height="400" Width="500" ResizeMode="NoResize">
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+        <TextBox x:Name="txt_display" Text="0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="50" Width="420" Margin="0,10,0,0"
+         TextAlignment="Center" 
+         FontWeight="Bold" FontSize="24" MinLines="1"/>
+
+        <Button x:Name="btn_7" Content="7" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" Width="100" Height="50" Background="LightGray" FontSize="18"/>
+        <Button x:Name="btn_8" Content="8" HorizontalAlignment="Left" Margin="120,70,0,0" VerticalAlignment="Top" Width="100" Height="50" Background="LightGray" FontSize="18"/>
+        <Button x:Name="btn_9" Content="9" HorizontalAlignment="Left" Margin="230,70,0,0" VerticalAlignment="Top" Width="100" Height="50" Background="LightGray" FontSize="18"/>
+        <Button x:Name="btn_add" Content="+" HorizontalAlignment="Left" Margin="340,70,0,0" VerticalAlignment="Top" Width="100" Height="50" Background="DarkGray" FontSize="18"/>
+        <Button x:Name="btn_4" Content="4" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top" Width="100" Height="50" Background="LightGray" FontSize="18"/>
+        <Button x:Name="btn_5" Content="5" HorizontalAlignment="Left" Margin="120,130,0,0" VerticalAlignment="Top" Width="100" Height="50" Background="LightGray" FontSize="18"/>
+        <Button x:Name="btn_6" Content="6" HorizontalAlignment="Left" Margin="230,130,0,0" VerticalAlignment="Top" Width="100" Height="50" Background="LightGray" FontSize="18"/>
+        <Button x:Name="btn_substract" Content="-" HorizontalAlignment="Left" Margin="340,130,0,0" VerticalAlignment="Top" Width="100" Height="50" Background="DarkGray" FontSize="18"/>
+        <Button x:Name="btn_1" Content="1" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" Width="100" Height="50" Background="LightGray" FontSize="18"/>
+        <Button x:Name="btn_2" Content="2" HorizontalAlignment="Left" Margin="120,190,0,0" VerticalAlignment="Top" Width="100" Height="50" Background="LightGray" FontSize="18"/>
+        <Button x:Name="btn_3" Content="3" HorizontalAlignment="Left" Margin="230,190,0,0" VerticalAlignment="Top" Width="100" Height="50" Background="LightGray" FontSize="18"/>
+        <Button x:Name="btn_multiply" Content="x" HorizontalAlignment="Left" Margin="340,190,0,0" VerticalAlignment="Top" Width="100" Height="50" Background="DarkGray" FontSize="18"/>
+        <Button x:Name="btn_clear" Content="C" HorizontalAlignment="Left" Margin="10,250,0,0" VerticalAlignment="Top" Width="100" Height="50" Background="DarkBlue" FontSize="18" Click="btn_clear_Click"/>
+        <Button x:Name="btn_0" Content="0" HorizontalAlignment="Left" Margin="120,250,0,0" VerticalAlignment="Top" Width="100" Height="50" Background="LightGray" FontSize="18"/>
+        <Button x:Name="btn_equals" Content="=" HorizontalAlignment="Left" Margin="230,250,0,0" VerticalAlignment="Top" Width="100" Height="50" Background="DarkOrange" FontSize="18"/>
+        <Button x:Name="btn_divide" Content="/" HorizontalAlignment="Left" Margin="340,250,0,0" VerticalAlignment="Top" Width="100" Height="50" Background="DarkGray" FontSize="18"/>
+
+    </Grid>
+</Window>

@@ -11,27 +11,23 @@ System rozpoznaje podane przez użytkownika dwie liczby całkowite i rodzaj oper
 
 Oprogramowanie należy zrealizować jako aplikację desktopową z graficznym interfejsem użytkownika (GUI).
 
-### Interfejs Użytkownika
-
-![App's MainWindowScreenshot](mainWindowScreen.png)
-
-> *Zrzut ekranu z modułu **Design** ze środowiska **Visual Studio***
-
 ### Format wiadomości
 
 Użytkownik podaje polecenie zgodnie z ustalonym formatem wiadomości.
 
-**`NUM_1` | `OP` | `NUM_2` | `CMD_EXEC`**
+**`CMD_START` | `NUM_1` | `OP` | `NUM_2`**
 
 gdzie:
+
+`CMD_START` : Komenda inicjująca polecenie : jedno z <*Ile jest*>
 
 `NUM_x` : liczba całkowita nr *x*
 
 `OP` : Rodzaj operacji - jedno z <*dodać / plus, odjąć / minus, razy / pomnożyć / podzielić*>
 
-`CMD_EXEC`: Komenda wykonania obliczeń - <*wykonaj*>
-
 Po zadanym poleceniu system wykonuje działanie zdefiniowane w `OP` na liczbach `NUM_1` i `NUM_2` oraz zwraca wynik operacji lub informuje o błędzie operacji, np. w przypadku polecenia dzielenia przez 0.
+
+Do zaimplementowania tej logiki użyto gramatyki zapisanej w [grammar.xml](SwpLab/grammar.xml).
 
 ### Inne polecenia
 
@@ -52,5 +48,3 @@ Do operacji rozpoznawania i syntezy mowy wykorzystano **Microsoft Speech Platfor
 ### Kod źródłowy
 
 Zbudowano rozwiązanie Visual Studio: [`SwpLab`](SwpLab/).
-
-W ramach rozwiązania utworzono projekt: [`Lab2`](SwpLab/Lab2/).

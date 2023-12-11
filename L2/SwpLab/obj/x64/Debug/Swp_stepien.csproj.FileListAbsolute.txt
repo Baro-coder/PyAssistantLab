@@ -1,0 +1,37 @@
+D:\Visual Studio 2022 projects\Swp_stepien\bin\x64\Debug\Swp_stepien.exe.config
+D:\Visual Studio 2022 projects\Swp_stepien\bin\x64\Debug\Swp_stepien.exe
+D:\Visual Studio 2022 projects\Swp_stepien\bin\x64\Debug\Swp_stepien.pdb
+D:\Visual Studio 2022 projects\Swp_stepien\bin\x64\Debug\Microsoft.Speech.dll
+D:\Visual Studio 2022 projects\Swp_stepien\obj\x64\Debug\Swp_stepien.csproj.AssemblyReference.cache
+D:\Visual Studio 2022 projects\Swp_stepien\obj\x64\Debug\MainWindow.g.cs
+D:\Visual Studio 2022 projects\Swp_stepien\obj\x64\Debug\App.g.cs
+D:\Visual Studio 2022 projects\Swp_stepien\obj\x64\Debug\Swp_stepien_MarkupCompile.cache
+D:\Visual Studio 2022 projects\Swp_stepien\obj\x64\Debug\Swp_stepien_MarkupCompile.lref
+D:\Visual Studio 2022 projects\Swp_stepien\obj\x64\Debug\MainWindow.baml
+D:\Visual Studio 2022 projects\Swp_stepien\obj\x64\Debug\Swp_stepien.g.resources
+D:\Visual Studio 2022 projects\Swp_stepien\obj\x64\Debug\Swp_stepien.Properties.Resources.resources
+D:\Visual Studio 2022 projects\Swp_stepien\obj\x64\Debug\Swp_stepien.csproj.GenerateResource.cache
+D:\Visual Studio 2022 projects\Swp_stepien\obj\x64\Debug\Swp_stepien.csproj.CoreCompileInputs.cache
+D:\Visual Studio 2022 projects\Swp_stepien\obj\x64\Debug\Swp_stepien.csproj.CopyComplete
+D:\Visual Studio 2022 projects\Swp_stepien\obj\x64\Debug\Swp_stepien.exe
+D:\Visual Studio 2022 projects\Swp_stepien\obj\x64\Debug\Swp_stepien.pdb
+D:\Visual Studio 2022 projects\Swp_stepien\bin\x64\Debug\Grammars\grammar.xml
+D:\Visual Studio 2022 projects\Swp_stepien\obj\x64\Debug\Swp_stepien_Content.g.cs
+C:\Users\User\Desktop\repos\Swp_stepien\Swp_stepien\bin\x64\Debug\Grammars\grammar.xml
+C:\Users\User\Desktop\repos\Swp_stepien\Swp_stepien\bin\x64\Debug\Swp_stepien.exe.config
+C:\Users\User\Desktop\repos\Swp_stepien\Swp_stepien\bin\x64\Debug\Swp_stepien.exe
+C:\Users\User\Desktop\repos\Swp_stepien\Swp_stepien\bin\x64\Debug\Swp_stepien.pdb
+C:\Users\User\Desktop\repos\Swp_stepien\Swp_stepien\obj\x64\Debug\Swp_stepien.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\repos\Swp_stepien\Swp_stepien\obj\x64\Debug\MainWindow.g.cs
+C:\Users\User\Desktop\repos\Swp_stepien\Swp_stepien\obj\x64\Debug\App.g.cs
+C:\Users\User\Desktop\repos\Swp_stepien\Swp_stepien\obj\x64\Debug\Swp_stepien_Content.g.cs
+C:\Users\User\Desktop\repos\Swp_stepien\Swp_stepien\obj\x64\Debug\Swp_stepien_MarkupCompile.cache
+C:\Users\User\Desktop\repos\Swp_stepien\Swp_stepien\obj\x64\Debug\Swp_stepien_MarkupCompile.lref
+C:\Users\User\Desktop\repos\Swp_stepien\Swp_stepien\obj\x64\Debug\MainWindow.baml
+C:\Users\User\Desktop\repos\Swp_stepien\Swp_stepien\obj\x64\Debug\Swp_stepien.g.resources
+C:\Users\User\Desktop\repos\Swp_stepien\Swp_stepien\obj\x64\Debug\Swp_stepien.Properties.Resources.resources
+C:\Users\User\Desktop\repos\Swp_stepien\Swp_stepien\obj\x64\Debug\Swp_stepien.csproj.GenerateResource.cache
+C:\Users\User\Desktop\repos\Swp_stepien\Swp_stepien\obj\x64\Debug\Swp_stepien.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\repos\Swp_stepien\Swp_stepien\obj\x64\Debug\Swp_stepien.csproj.CopyComplete
+C:\Users\User\Desktop\repos\Swp_stepien\Swp_stepien\obj\x64\Debug\Swp_stepien.exe
+C:\Users\User\Desktop\repos\Swp_stepien\Swp_stepien\obj\x64\Debug\Swp_stepien.pdb
